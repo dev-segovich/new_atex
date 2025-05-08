@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATEX | Coming Soon</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <img src="Atex Full.png" alt="ATEX Logo" class="logo" />
+    <h1 class="headline">NEW MISSION ITS COMING SOON...</h1>
+    <p class="subheadline">Be part of the future of real estate</p>
+    <div class="countdown" id="countdown"></div>
+    <form class="newsletter">
+      <input type="email" placeholder="Enter your email" required />
+      <button type="submit">Notify me</button>
+    </form>
+  </div>
+
+  <script>
+    const countdown = document.getElementById('countdown');
+    const targetDate = new Date("2025-05-17T00:00:00").getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `
+        <span>${days}d</span> :
+        <span>${hours}h</span> :
+        <span>${minutes}m</span> :
+        <span>${seconds}s</span>
+      `;
+
+      if (distance < 0) {
+        countdown.innerHTML = "¡Ya estamos en línea!";
+      }
+    };
+
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
