@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="aboutus.css">
+</head>
+<body>
+
+<section class="scroll-expand-section">
+  <div class="scroll-bg"></div>
+  <div class="media-container" id="mediaContainer">
+    <img src="img/fondo.webp" alt="About Atex" class="media-content" />
+  </div>
+  <div class="scroll-heading">
+    <h1>
+      <span class="fade-line">ABOUT US</span><br />
+    </h1>
+    <p class="scroll-subtitle">Scroll to explore</p>
+  </div>
+  
+</section>
+
+<section class="aboutus-content" id="aboutusContent">
+  <div class="content-wrapper">
+    <h2>About Us</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec luctus erat. Integer porttitor, ex in accumsan commodo, lacus erat sodales lorem, nec suscipit nisl mauris ac neque. Quisque quis porta nulla. Sed blandit mi vel congue commodo.</p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. <br><br> Quidem repellendus quam totam similique impedit ullam qui velit distinctio eos aut id, maiores fugiat dolores dolor beatae quaerat quibusdam error quas.</p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. <br><br> Quidem repellendus quam totam similique impedit ullam qui velit distinctio eos aut id, maiores fugiat dolores dolor beatae quaerat quibusdam error quas.</p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. <br><br> Quidem repellendus quam totam similique impedit ullam qui velit distinctio eos aut id, maiores fugiat dolores dolor beatae quaerat quibusdam error quas.</p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. <br><br> Quidem repellendus quam totam similique impedit ullam qui velit distinctio eos aut id, maiores fugiat dolores dolor beatae quaerat quibusdam error quas.</p>
+    
+  
+  </div>
+</section>
+
+<script>
+  const media = document.getElementById('mediaContainer');
+  const aboutContent = document.getElementById('aboutusContent');
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const scaleFactor = Math.min(0.7 + scrollY / 600, 1.6);
+    media.style.transform = `scale(${scaleFactor})`;
+
+    if (scrollY > 300) {
+      aboutContent.style.opacity = '1';
+      aboutContent.style.transform = 'translateY(0)';
+    } else {
+      aboutContent.style.opacity = '0';
+      aboutContent.style.transform = 'translateY(50px)';
+    }
+  });
+</script>
+
+</body>
+</html>
