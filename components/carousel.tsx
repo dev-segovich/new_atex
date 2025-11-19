@@ -3,32 +3,28 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-// const imageList = [
-// 	"/img/S1.webp",
-// 	"/img/S2.webp",
-// 	"/img/S3.webp",
-// 	"/img/S4.webp",
-// 	"/img/S5.webp",
-// 	"/img/S6.webp",
-// 	"/img/S7.webp",
-// 	"/img/S8.webp",
-// 	"/img/S9.webp",
-// 	"/img/S10.webp",
-// 	"/img/S11.webp",
-// 	"/img/S12.webp",
-// 	"/img/S13.webp",
-// 	"/img/S14.webp",
-// 	"/img/S15.webp",
-// ];
-
 const imageList = [
 	"/img/S1.webp",
 	"/img/S16.webp",
+	"/img/S2.webp",
 	"/img/S17.webp",
+	"/img/S3.webp",
 	"/img/S18.webp",
+	"/img/S4.webp",
 	"/img/S19.webp",
+	"/img/S5.webp",
 	"/img/S20.webp",
+	"/img/S6.webp",
 	"/img/S21.webp",
+	"/img/S7.webp",
+	"/img/S8.webp",
+	"/img/S9.webp",
+	"/img/S10.webp",
+	"/img/S11.webp",
+	"/img/S12.webp",
+	"/img/S13.webp",
+	"/img/S14.webp",
+	"/img/S15.webp",
 ];
 
 const Carousel = () => {
