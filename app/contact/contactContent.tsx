@@ -7,6 +7,9 @@ export default function ContactContent() {
   const { t } = useTranslation();
   const [showOtherType, setShowOtherType] = useState(false);
   const [showOtherRegion, setShowOtherRegion] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const investorTypes = t('contactPage.investorTypes', { returnObjects: true }) as string[];
   const regions = t('contactPage.regions', { returnObjects: true }) as string[];
@@ -16,6 +19,66 @@ export default function ContactContent() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
+    const formData = new FormData(e.currentTarget);
+    
+    // Convert FormData to object
+    const data: Record<string, any> = {};
+    
+    // Handle regular fields
+    formData.forEach((value, key) => {
+      if (key.endsWith('[]')) {
+        const cleanKey = key.replace('[]', '');
+        if (!data[cleanKey]) {
+          data[cleanKey] = [];
+        }
+        data[cleanKey].push(value);
+      } else {
+        data[key] = value;
+      }
+    });
+
+    // Add timestamp for bot detection
+    data.timestamp = Math.floor(Date.now() / 1000);
+
+    try {
+      // Point to the XAMPP Apache server, not the Next.js dev server
+      const response = await fetch('http://localhost/new_atex/public/submit_contact.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitSuccess(true);
+        // Reset form
+        e.currentTarget.reset();
+        setShowOtherType(false);
+        setShowOtherRegion(false);
+        setStatus(null);
+        
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setSubmitError(result.message || 'An error occurred. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitError('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -37,12 +100,31 @@ export default function ContactContent() {
           {t('contactPage.intro')}
         </p>
 
+        {submitSuccess && (
+          <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+            <strong>Success!</strong> Your form has been submitted successfully. We will contact you soon.
+          </div>
+        )}
+
+        {submitError && (
+          <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <strong>Error:</strong> {submitError}
+          </div>
+        )}
+
         <form
-          action="https://atexgrp.com/submit.php"
-          method="POST"
-          encType="multipart/form-data"
+          onSubmit={handleSubmit}
           className="space-y-6 bg-white p-8 rounded-lg shadow-lg border border-gray-200"
         >
+          {/* Honeypot field - hidden from users, bots will fill it */}
+          <input 
+            type="text" 
+            name="website" 
+            style={{ display: 'none' }} 
+            tabIndex={-1} 
+            autoComplete="off"
+          />
+          
           <h3 className="text-xl font-semibold mb-2">1. {t('contactPage.sections.basic')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -215,9 +297,10 @@ export default function ContactContent() {
           <div className="text-center pt-4">
             <button
               type="submit"
-              className="bg-[#364350] text-white px-6 py-3 rounded hover:bg-[#2e3a44] transition"
+              disabled={isSubmitting}
+              className="bg-[#364350] text-white px-6 py-3 rounded hover:bg-[#2e3a44] transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {t('contactPage.submit')}
+              {isSubmitting ? 'Submitting...' : t('contactPage.submit')}
             </button>
           </div>
         </form>
