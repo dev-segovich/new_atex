@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Trans } from 'react-i18next';
-
+import Image from 'next/image';
 
 
 export default function InvestmentStrategyContent() {
@@ -16,9 +16,11 @@ export default function InvestmentStrategyContent() {
   return (
     <div className="min-h-screen">
       <section className="relative w-full h-[60vh] overflow-hidden mb-16">
-        <img
+        <Image
           src="/img/F3.webp"
           alt="Investment Strategy"
+          width={1920}
+          height={1080}
           className="brightness-[0.7] w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -105,10 +107,12 @@ export default function InvestmentStrategyContent() {
             key={index}
             className="bg-[#364350] text-white p-6 rounded-lg flex flex-col items-center text-center shadow-md"
             >
-            <img
+            <Image
                 src={`/img/${item.icon}`}
                 alt={item.label}
-                className="w-50 h-50 object-contain"
+                width={50}
+                height={50}
+                className="object-contain"
             />
             <p className="text-base font-medium">{item.label}</p>
             </div>
@@ -152,9 +156,11 @@ export default function InvestmentStrategyContent() {
             >
             {['F1.webp', 'F2.webp', 'F3.webp', 'F4.webp', 'F5.webp', 'F6.webp'].map((img, idx) => (
                 <SwiperSlide key={idx}>
-                <img
+                <Image
                     src={`/img/${img}`}
                     alt={`Slide ${idx + 1}`}
+                    width={1920}
+                    height={1080}
                     className="w-full h-auto object-cover rounded"
                 />
                 </SwiperSlide>

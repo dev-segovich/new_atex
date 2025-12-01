@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 
 export default function AboutContent() {
@@ -8,9 +9,11 @@ export default function AboutContent() {
   return (
     <div className="min-h-screen">
       <section className="relative w-full h-[60vh] overflow-hidden mb-16">
-        <img
+        <Image
           src="/img/16.webp"
           alt="About"
+          width={1920}
+          height={1080}
           className="brightness-[0.7] w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">

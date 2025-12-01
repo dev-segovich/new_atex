@@ -3,6 +3,7 @@ import Carousel from '@/components/carousel';
 import Accordion from "@/components/accordionitem";
 import { useTranslation } from 'react-i18next';
 import '../i18n';
+import Image from 'next/image';
 
 export default function HomeContent() {
   const { t } = useTranslation('common');
@@ -39,7 +40,7 @@ export default function HomeContent() {
 
       <section className="featured-image-section">
         <div className="image-wrapper">
-          <img src="img/a1.webp" alt="Featured Atex Project" className="featured-image" />
+          <Image src="img/a1.webp" alt="Featured Atex Project" width={1920} height={1080} className="featured-image" />
           <p className="text-sm image-caption">{t('caption_1')}</p>
         </div>
       </section>
@@ -82,7 +83,7 @@ export default function HomeContent() {
 
       <section className="featured-image-section">
         <div className="image-wrapper">
-          <img src="img/fondo5.webp" alt="Massing Atex Project" className="featured-image" />
+          <Image src="img/fondo5.webp" alt="Massing Atex Project" width={1920} height={1080} className="featured-image" />
           <p className="image-caption">{t('caption_2')}</p>
         </div>
       </section>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 
 export default function ContactContent() {
   const { t } = useTranslation();
@@ -30,6 +31,7 @@ export default function ContactContent() {
     const formData = new FormData(e.currentTarget);
     
     // Convert FormData to object
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: Record<string, any> = {};
     
     // Handle regular fields
@@ -84,9 +86,11 @@ export default function ContactContent() {
   return (
     <div className="min-h-screen bg-[#f9fbfc] text-[#364350]">
       <section className="relative w-full h-[60vh] overflow-hidden">
-        <img
+        <Image
           src="/img/a6.webp"
           alt=""
+          width={1920}
+          height={1080}
           className="brightness-[0.7] w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import ServiceAccordionWrapper from '@/components/service_accordion_wrapper';
 import '../../i18n'
+import Image from 'next/image';
 
 export default function ServiceContent() {
   const { t } = useTranslation('common');
@@ -16,9 +17,11 @@ export default function ServiceContent() {
   return (
     <main className="min-h-screen bg-white text-[#364350]">
       <section className="relative w-full h-[60vh] overflow-hidden">
-        <img
+        <Image
           src="/img/21.webp"
           alt=""
+          width={1920}
+          height={1080}
           className="brightness-[0.7] w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
