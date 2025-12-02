@@ -1,13 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   output: 'export',
-  images: {
-    unoptimized: true, // necesario para poder exportar sin procesar imágenes
-  },
-  basePath: '',           // IMPORTANTE
-  assetPrefix: '.',       // pez clave: usa rutas relativas
-  trailingSlash: true     // para que genere index.html en cada carpeta
+  images: { unoptimized: true },
+  assetPrefix: '',
+  basePath: '',
+  trailingSlash: true,
 };
 
 export default nextConfig;
