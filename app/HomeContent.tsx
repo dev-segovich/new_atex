@@ -4,9 +4,41 @@ import Accordion from "@/components/accordionitem";
 import { useTranslation } from 'react-i18next';
 import '../i18n';
 import Image from 'next/image';
+import { useRef, useEffect } from 'react';
 
 export default function HomeContent() {
   const { t } = useTranslation('common');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Reproducir cuando esté visible
+            video.play().catch((error) => {
+              console.log('No se pudo reproducir:', error);
+            });
+          } else {
+            // Pausar cuando salga de vista
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <main>
@@ -19,6 +51,23 @@ export default function HomeContent() {
           <p className="intro-text">{t('intro_1')}</p>
           <p className="intro-text">{t('intro_2')}</p>
           <p className="intro-text">{t('intro_3')}</p>
+        </div>
+      </section>
+
+      <section className="video-section">
+        <div className="video-container">
+          <h1 className="video-heading">{t('video_title')}</h1>
+          <video 
+            ref={videoRef}
+            src="/videos/vid1.mp4" 
+            controls 
+            muted
+            loop
+            playsInline
+            className="featured-video"
+          >
+            Tu navegador no soporta el elemento de video.
+          </video>
         </div>
       </section>
 
