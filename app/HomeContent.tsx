@@ -6,9 +6,10 @@ import '../i18n';
 import Image from 'next/image';
 import { useRef, useEffect } from 'react';
 
+
 export default function HomeContent() {
   const { t } = useTranslation('common');
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -18,13 +19,11 @@ export default function HomeContent() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Reproducir cuando esté visible
-            video.play().catch((error) => {
-              console.log('No se pudo reproducir:', error);
-            });
+            // Send play command to YouTube iframe
+            video.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
           } else {
-            // Pausar cuando salga de vista
-            video.pause();
+            // Send pause command to YouTube iframe
+            video.contentWindow?.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
           }
         });
       },
@@ -39,6 +38,7 @@ export default function HomeContent() {
       observer.disconnect();
     };
   }, []);
+
 
   return (
     <main>
@@ -57,17 +57,16 @@ export default function HomeContent() {
       <section className="video-section">
         <div className="video-container">
           <h1 className="video-heading">{t('video_title')}</h1>
-          <video 
+          <iframe 
             ref={videoRef}
-            src="/videos/vid1.mp4" 
-            controls 
-            muted
-            loop
-            playsInline
-            className="featured-video"
+            src="https://www.youtube.com/embed/vRMO4-0BI-M?enablejsapi=1&mute=1" 
+            title="YouTube video player" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="featured-video aspect-video"
           >
-            Tu navegador no soporta el elemento de video.
-          </video>
+          </iframe>
         </div>
       </section>
 
