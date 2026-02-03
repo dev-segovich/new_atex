@@ -28,11 +28,12 @@ export default function ContactContent() {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const form = e.currentTarget; // Capture form reference before async
 		setIsSubmitting(true);
 		setSubmitError(null);
 		setSubmitSuccess(false);
 
-		const formData = new FormData(e.currentTarget);
+		const formData = new FormData(form);
 
 		// Convert FormData to object
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -69,7 +70,7 @@ export default function ContactContent() {
 			if (result.success) {
 				setSubmitSuccess(true);
 				// Reset form
-				e.currentTarget.reset();
+				form.reset();
 				setShowOtherType(false);
 				setShowOtherRegion(false);
 				setStatus(null);
