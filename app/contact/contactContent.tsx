@@ -56,7 +56,7 @@ export default function ContactContent() {
 
 		try {
 			// Point to the XAMPP Apache server, not the Next.js dev server
-			const response = await fetch("/new_atex/public/submit_contact.php", {
+			const response = await fetch("../submit_contact.php", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
