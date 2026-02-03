@@ -168,9 +168,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // PROCESO 1: BASE DE DATOS (Independiente)
         // ====================================
         try {
-            // Insertar en base de datos (Tabla marston_contact)
+            // Insertar en base de datos (Tabla atex_contact)
             $stmt = $pdo->prepare("
-                INSERT INTO marston_contact (
+                INSERT INTO atex_contact (
                     full_name, email, phone_number, entity_name, 
                     investor_type, other_investor_type, acreditation_status, 
                     region_residence, other_region_residence, investment_interest, 
